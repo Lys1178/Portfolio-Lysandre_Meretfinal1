@@ -1,0 +1,659 @@
+@font-face {
+    font-family: 'Trajan';
+    src: url('TrajanPro-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Frutiger65';
+    src: url('Frutiger65.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Helvetica Bold';
+    src: url('IBMPlexSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: bold;
+}
+@font-face {
+    font-family: 'TTPubs-Italic';
+    src: url('TTPubs-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+:root {
+  --bg: #0b0b10;
+  --panel: #10131a;
+  --text: #e6e6f0;
+  --muted: #a6adbb;
+  --brand: #7c5cff;
+  --brand-2: #00e0b8;
+  --accent: #ffcc70;
+  --ring: rgba(124,92,255,.35);
+  --shadow: 0 10px 30px hsl(240 20% 5% / .35);
+  --radius: 16px;
+}
+
+html {
+  min-height: 100%;
+  scroll-padding-top: 100px; 
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  background: radial-gradient(ellipse at top left, rgba(124,92,255,0.25), transparent 60%),
+              radial-gradient(ellipse at bottom right, rgba(0,224,184,0.25), transparent 60%),
+              #050510;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes slide {
+    0% { transform: translateX(0); filter: grayscale(0%); }
+    25% { transform: translateX(80px); filter: grayscale(100%); }
+    50% { transform: translateX(-80px); filter: grayscale(0%); }
+    100% { transform: translateX(0); filter: grayscale(0%); }
+}
+
+@keyframes glitch {
+    0% { transform: translateX(0); filter: grayscale(0%); }
+    25% { transform: translateX(-2px); filter: grayscale(100%); }
+    50% { transform: translateX(2px); filter: grayscale(0%); }
+    75% { transform: translateX(-2px); filter: grayscale(100%); }
+    100% { transform: translateX(0); filter: grayscale(0%); }
+}
+
+
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+header {
+    background-color: #000000;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    position: relative;
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+header h1 {
+    position: relative;
+    font-size: clamp(20px, 4vw, 30px);
+    font-weight: bold;
+    color: #ffffff;
+    font-family: 'TTPubs-Italic', italic;
+    margin: 0;
+    top: 5px;
+    left: 10%;
+}
+
+.logo {
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    top: -6px;
+    left: 20px;
+    opacity: 80%;
+}
+
+.choix {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-family: 'TTPubs-Italic', italic;
+}
+
+.choix a {
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    color: #ffffff;
+    font-weight: bold;
+    font-family: "TTPubs-Italic", italic;
+    text-decoration: none;
+    height: 30px;
+    font-size: clamp(12px, 2vw, 15px);
+}
+
+.choix a:hover {
+    animation: glitch 2s infinite;
+}
+
+.choix p {
+    font-size: clamp(12px, 2vw, 20px);
+    font-weight: bold;
+    color: #ffffff;
+    font-family: 'TTPubs-Italic', italic;
+    margin: 0;
+}
+
+/* ========================================
+   VIDÉO ET BOUTONS CENTRAUX
+   ======================================== */
+video{
+  width: 100%;
+  height: 50vh;
+  object-fit: cover;
+  display: block;
+}
+
+.titre1 , .titre2 {
+    display: flex;
+    position: fixed;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    font-family: 'TTPubs-Italic', bold;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    margin: 0;
+    text-decoration: none;
+    background-color: rgb(0, 0, 0);
+    width: clamp(200px, 40vw, 300px);
+    height: clamp(50px, 10vh, 65px);
+    border-top: white 5px solid;
+    transition: transform 0.3s ease, opacity 0.5s ease-in-out;
+    border-radius: 10px;
+    opacity: 80%;
+}
+
+.titre1 {
+    top: 47%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+.titre2 {
+    top: 37%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+.titre1 :hover {
+    background-color: transparent;
+    transform: translate(-50%, -50%) translateY(6px);
+}
+
+.titre2:hover {
+    background-color: transparent;
+    transform: translate(-50%, -50%) translateY(-6px);
+}
+
+.image1 {
+    position: fixed;
+    width: clamp(250px, 40vw, 400px);
+    height: auto;
+    left: 50%;
+    top: 250px;
+    transform: translateX(-50%);
+}
+
+
+/* ========================================
+   ABOUT ME
+   ======================================== */
+
+.Aboutme {
+    position: relative;
+    background-color: transparent;
+    border-radius: 50px;
+    width: 100%;
+    right : 300px;
+    max-width: 500px;
+    min-height: 600px;
+    margin: 0 auto;
+    font-family: TTPubs-Italic, italic;
+    font-weight: bold;
+    font-size: clamp(28px, 5vw, 40px);
+    color: aquamarine;
+    top:400px;
+    opacity: 1;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 3rem 2.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 5px white solid;
+}
+
+.Aboutme p {
+    position: relative;
+    left: 10px;
+    top: -30px;
+}
+
+.Aboutme:hover {
+    transform: translateY(-10px);
+}
+
+.Aboutme-content { 
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    width: 90%;
+    max-width: 40vh;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10vh;
+    font-weight: bold;
+    color: aquamarine;
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-family: 'Helvetica Bold', bold;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Aboutme-content:hover {
+    transform: translateX(-50%) translateY(-10px);
+}
+
+.compétence {
+    height: 50px;
+    top: 10px;
+    background : transparent;
+    border-radius: 50px;
+    padding: 15px 20px;
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: aquamarine;
+    font-family: 'Frutiger65', sans-serif;
+}
+
+/* ========================================
+   STATS
+   ======================================== */
+
+.Stat-container {
+    position: relative;
+    top: 50vh;
+    background: transparent;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.Stat-container > p {
+    font-family: 'TTPubs-Italic', italic;
+    font-size: clamp(32px, 6vw, 48px);
+    color: white;
+    margin-bottom: 3rem;
+}
+
+.Stat1, .Stat2, .Stat3, .Stat4, .Stat5 {
+    display: inline-block;
+    background: rgba(20, 25, 45, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 1rem;
+    min-width: clamp(150px, 30vw, 180px);
+    text-align: center;
+    color: white;
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-family: 'TTPubs-Italic', italic;
+    position: relative;
+    transition: transform 0.3s ease;
+    border-top: white 5px solid;
+}
+
+.Stat1:hover, .Stat2:hover, .Stat3:hover, .Stat4:hover, .Stat5:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.progress-circle {
+    display: block;
+    margin: 0 auto 1rem;
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+}
+
+.progress {
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease;
+}
+
+.percentage {
+    position: absolute;
+    top: 5rem;
+    left: 51%;
+    transform: translateX(-50%);
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: bold;
+    color: white;
+}
+
+.Stat1 p, .Stat2 p, .Stat3 p, .Stat4 p, .Stat5 p {
+    margin-top: 1rem;
+    color: #b0b0b0;
+}
+
+/* ========================================
+   PROJETS
+   ======================================== */
+
+.Projets-container {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    top: 70vh;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 2rem;
+}
+
+.Projets-container p {
+    position: relative;
+    font-family: 'TTPubs-Italic', italic;
+    font-size: clamp(28px, 5vw, 40px);
+    margin: 0 0 20px 0;
+    left: 5%;
+    top: 5vh;
+}
+
+.Flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    margin-top: 10vh;
+    padding: 2rem;
+}
+
+.Projet1, .Projet2, .Projet3, .Projet4, .Projet5, .Projet6, .Projet7 {
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'TTPubs-Italic', italic;
+    text-align: center;
+    color: white;
+    width: 100%;
+    max-width: 350px;
+    height: 300px;
+    background-color: #0a0a0a94;
+    border-radius: 20px;
+    border: 1px solid rgb(37, 37, 37);
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: white 5px solid;
+}
+.statlogo     {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.Projet1:hover, .Projet2:hover, .Projet3:hover, .Projet4:hover, .Projet5:hover, .Projet6:hover, .Projet7:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.Projet1 p, .Projet2 p, .Projet3 p, .Projet4 p, .Projet5 p, .Projet6 p, .Projet7 p {
+    font-size: clamp(16px, 3vw, 20px);
+    font-family: 'TTPubs-Italic';
+    width: 100%;
+    height: 50%;
+    color: aquamarine;
+    margin: 0;
+    padding: 10px;
+}
+
+.compétence-projet, .compétence-projet2, .compétence-projet3 {
+    position: relative;
+    font-size: clamp(12px, 2vw, 16px);
+    color: #00FFFF;
+    margin: 5px 0;
+    font-family: 'Helvetica', sans-serif;
+}
+
+.Projet1 img, .Projet2 img, .Projet3 img, .Projet4 img, .Projet5 img, .Projet6 img, .Projet7 img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 50%;
+}
+
+/* ========================================
+   CONTACT
+   ======================================== */
+
+.Comm-container {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    top: 80vh;
+    color: aquamarine;
+    padding: 20px;
+    width: 100%;
+}
+
+.Comm-container p {
+    position: relative;
+    font-size: clamp(28px, 5vw, 40px);
+    font-family: TTPubs-Italic, italic;
+    margin: 0 0 20px 0;
+    align-self: flex-start;
+    left: 5%;
+}
+
+.Comm-container input,
+.Comm-container textarea {
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(127, 255, 212, 0.3);
+    border-radius: 12px;
+    padding: 15px 20px;
+    color: aquamarine;
+    font-size: clamp(14px, 2vw, 16px);
+    width: 90%;
+    max-width: 600px;
+    outline: none;
+    font-family: 'Helvetica', sans-serif;
+}
+
+.Comm-container input {
+    height: 50px;
+    resize: vertical;
+    border-top: white 5px solid;
+}
+
+.Comm-container textarea {
+    border-top: white 5px solid;
+    height: 150px;
+    resize: vertical;
+}
+
+.Comm-container input::placeholder,
+.Comm-container textarea::placeholder {
+    color: rgba(127, 255, 212, 0.5);
+}
+
+.Comm-container input:focus,
+.Comm-container textarea:focus {
+    border-color: rgba(127, 255, 212, 0.6);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+button {
+    position: relative;
+    background: aquamarine;
+    border: none;   
+    font-family: TTPubs-Italic, italic;
+    border-radius: 12px;
+    padding: 12px 30px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.3s ease;
+    border-top: white 5px solid;
+    font-size: clamp(14px, 2vw, 16px);
+}
+
+button:hover {
+    background: #00e0b8;
+    transform: scale(1.05);
+}
+
+/* ========================================
+   MEDIA QUERIES - TABLETTES
+   ======================================== */
+
+@media (max-width: 1024px) {
+    header h1 {
+        left: 5%;
+    }
+    
+    .choix {
+        gap: 5px;
+    }
+    
+    .titre1 a, .titre2 a {
+        left: 50%;
+    }
+    
+    .titre1 a {
+        top: 55%;
+    }
+    
+    .titre2 a {
+        top: 45%;
+    }
+    
+    .Aboutme-content {
+        left: 50%;
+        top: 10vh;
+    }
+    
+    .Flex-container {
+        gap: 30px;
+    }
+}
+
+/* ========================================
+   MEDIA QUERIES - MOBILES
+   ======================================== */
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+    }
+    
+    header h1 {
+        left: 0;
+        top: 0;
+        margin-bottom: 10px;
+    }
+    
+    .choix {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .logo {
+        width: 100px;
+        height: 100px;
+        top: 150px;
+    }
+    
+    video {
+        top: 250px;
+    }
+    
+    .titre1 a, .titre2 a {
+        width: 80%;
+        left: 50%;
+    }
+    
+    .titre1 a {
+        top: 60%;
+    }
+    
+    .titre2 a {
+        top: 50%;
+    }
+    
+    .Aboutme {
+        top: 800px;
+        padding: 2rem 1.5rem;
+    }
+    
+    .Aboutme-content {
+        width: 95%;
+        top: 5vh;
+    }
+    
+    .Stat-container {
+        top: 30vh;
+    }
+    
+    .Stat1, .Stat2, .Stat3, .Stat4, .Stat5 {
+        min-width: 100%;
+        margin: 0.5rem 0;
+    }
+    
+    .Projets-container {
+        top: 50vh;
+    }
+    
+    .Flex-container {
+        gap: 20px;
+        padding: 1rem;
+    }
+    
+    .Projet1, .Projet2, .Projet3, .Projet4, .Projet5, .Projet6, .Projet7 {
+        max-width: 100%;
+    }
+    
+    .Comm-container {
+        top: 60vh;
+    }
+    
+    button {
+        left: 0;
+        width: 90%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .background-decoratif {
+        display: none; /* Masque sur très petits écrans pour performance */
+    }
+    
+    .titre1 a, .titre2 a {
+        width: 90%;
+    }
+    
+    .Aboutme {
+        border-radius: 20px;
+    }
+}

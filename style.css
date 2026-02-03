@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'TT Pubs';
+    src: local('TT Pubs Italic'), local('TT-Pubs-Italic'),
+        url('TTPubs-Italic.woff2') format('woff2'),
+        url('TTPubs-Italic.woff') format('woff'),
+        url('TTPubs-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+  }
