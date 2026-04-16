@@ -4,18 +4,21 @@
     src: url('Frutiger65.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 @font-face {
     font-family: 'Helvetica Bold';
     src: url('IBMPlexSans-VariableFont_wdth,wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 @font-face {
     font-family: 'TTPubs-Italic';
     src: url('TTPubs-Italic.woff') format('woff');
     font-weight: normal;
     font-style: italic;
+    font-display: swap;
 }
 
 :root {
