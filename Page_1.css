@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'Frutiger65';
     src: url('Frutiger65.otf') format('opentype');
@@ -18,7 +17,7 @@
     src: url('TTPubs-Italic.woff') format('woff');
     font-weight: normal;
     font-style: italic;
-    font-display: swap;
+    font-display: swap; /* évite FOIT */
 }
 
 :root {
@@ -36,7 +35,7 @@
 
 html {
   min-height: 100%;
-  scroll-padding-top: 100px; 
+  scroll-padding-top: 100px;
   scroll-behavior: smooth;
 }
 
@@ -46,12 +45,23 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  background: radial-gradient(ellipse at top left, rgba(124,92,255,0.25), transparent 60%),
-              radial-gradient(ellipse at bottom right, rgba(0,224,184,0.25), transparent 60%),
-              #050510;
+  /* background-attachment:fixed désactivé sur mobile = kills paint perf.
+     On garde fixed uniquement pour les grands écrans */
+  background:
+    radial-gradient(ellipse at top left, rgba(124,92,255,0.25), transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(0,224,184,0.25), transparent 60%),
+    #050510;
   background-attachment: fixed;
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+
+/* Sur mobile, background-attachment:fixed force un repaint total à chaque frame
+   → on le désactive */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
 /* ========================================
@@ -59,21 +69,19 @@ body {
    ======================================== */
 
 @keyframes slide {
-    0% { transform: translateX(0); filter: grayscale(0%); }
-    25% { transform: translateX(80px); filter: grayscale(100%); }
-    50% { transform: translateX(-80px); filter: grayscale(0%); }
-    100% { transform: translateX(0); filter: grayscale(0%); }
+    0%   { transform: translateX(0);    filter: grayscale(0%);   }
+    25%  { transform: translateX(80px); filter: grayscale(100%); }
+    50%  { transform: translateX(-80px);filter: grayscale(0%);   }
+    100% { transform: translateX(0);    filter: grayscale(0%);   }
 }
 
 @keyframes glitch {
-    0% { transform: translateX(0); filter: grayscale(0%); }
-    25% { transform: translateX(-2px); filter: grayscale(100%); }
-    50% { transform: translateX(2px); filter: grayscale(0%); }
-    75% { transform: translateX(-2px); filter: grayscale(100%); }
-    100% { transform: translateX(0); filter: grayscale(0%); }
+    0%   { transform: translateX(0);   filter: grayscale(0%);   }
+    25%  { transform: translateX(-2px);filter: grayscale(100%); }
+    50%  { transform: translateX(2px); filter: grayscale(0%);   }
+    75%  { transform: translateX(-2px);filter: grayscale(100%); }
+    100% { transform: translateX(0);   filter: grayscale(0%);   }
 }
-
-
 
 /* ========================================
    HEADER
@@ -88,6 +96,8 @@ header {
     padding: 0 30px;
     position: relative;
     border-bottom: 2px solid rgb(255, 255, 255);
+    /* Empêche le header de créer une nouvelle couche de stacking inutile */
+    will-change: auto;
 }
 
 header h1 {
@@ -105,6 +115,7 @@ header h1 {
     position: absolute;
     width: 10vh;
     height: 10vh;
+    /* width/height déclarés en HTML aussi → évite CLS */
     top: -6px;
     left: 20px;
     opacity: 80%;
@@ -146,14 +157,16 @@ header h1 {
 /* ========================================
    VIDÉO ET BOUTONS CENTRAUX
    ======================================== */
-video{
+video {
   width: 100%;
   height: 50vh;
   object-fit: cover;
   display: block;
+  /* Évite que la vidéo soit promue en layer GPU inutilement au repos */
+  will-change: auto;
 }
 
-.titre1 , .titre2 {
+.titre1, .titre2 {
     display: flex;
     position: fixed;
     font-size: clamp(16px, 2.5vw, 20px);
@@ -170,9 +183,12 @@ video{
     width: clamp(200px, 40vw, 300px);
     height: clamp(50px, 10vh, 65px);
     border-top: white 5px solid;
+    /* transition sur opacity + transform uniquement → composite-only, 0 layout */
     transition: transform 0.3s ease, opacity 0.5s ease-in-out;
     border-radius: 10px;
     opacity: 80%;
+    /* Promouvoir en couche composite pour les animations opacity/transform */
+    will-change: transform, opacity;
 }
 
 .titre1 {
@@ -187,7 +203,7 @@ video{
     transform: translate(-50%, -50%);
 }
 
-.titre1 :hover {
+.titre1:hover {
     background-color: transparent;
     transform: translate(-50%, -50%) translateY(6px);
 }
@@ -196,16 +212,6 @@ video{
     background-color: transparent;
     transform: translate(-50%, -50%) translateY(-6px);
 }
-
-.image1 {
-    position: fixed;
-    width: clamp(250px, 40vw, 400px);
-    height: auto;
-    left: 50%;
-    top: 250px;
-    transform: translateX(-50%);
-}
-
 
 /* ========================================
    ABOUT ME
@@ -216,7 +222,7 @@ video{
     background-color: transparent;
     border-radius: 50px;
     width: 100%;
-    right : 300px;
+    right: 300px;
     max-width: 500px;
     min-height: 600px;
     margin: 0 auto;
@@ -224,12 +230,12 @@ video{
     font-weight: bold;
     font-size: clamp(28px, 5vw, 40px);
     color: aquamarine;
-    top:400px;
+    top: 400px;
     opacity: 1;
     text-align: left;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     padding: 3rem 2.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
     border-top: 5px white solid;
 }
 
@@ -243,7 +249,7 @@ video{
     transform: translateY(-10px);
 }
 
-.Aboutme-content { 
+.Aboutme-content {
     display: flex;
     flex-wrap: wrap;
     position: relative;
@@ -258,7 +264,7 @@ video{
     font-family: 'Helvetica Bold', bold;
     line-height: 1.6;
     margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .Aboutme-content:hover {
@@ -268,7 +274,7 @@ video{
 .compétence {
     height: 50px;
     top: 10px;
-    background : transparent;
+    background: transparent;
     border-radius: 50px;
     padding: 15px 20px;
     font-size: clamp(14px, 2.5vw, 18px);
@@ -286,6 +292,8 @@ video{
     background: transparent;
     padding: 4rem 2rem;
     text-align: center;
+    /* Isole le contexte de paint pour les cards */
+    contain: layout style;
 }
 
 .Stat-container > p {
@@ -310,6 +318,8 @@ video{
     position: relative;
     transition: transform 0.3s ease;
     border-top: white 5px solid;
+    /* Évite le repaint des voisins au hover */
+    contain: layout;
 }
 
 .Stat1:hover, .Stat2:hover, .Stat3:hover, .Stat4:hover, .Stat5:hover {
@@ -357,6 +367,7 @@ video{
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
     color: white;
     padding: 2rem;
+    contain: layout style;
 }
 
 .Projets-container p {
@@ -396,19 +407,23 @@ video{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s, box-shadow 0.3s;
     border-top: white 5px solid;
+    contain: layout;
 }
-.statlogo     {
+
+.statlogo {
     width: 50px;
     height: 50px;
     margin-bottom: 10px;
 }
 
-.Projet1:hover, .Projet2:hover, .Projet3:hover, .Projet4:hover, .Projet5:hover, .Projet6:hover, .Projet7:hover {
+.Projet1:hover, .Projet2:hover, .Projet3:hover,
+.Projet4:hover, .Projet5:hover, .Projet6:hover, .Projet7:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.Projet1 p, .Projet2 p, .Projet3 p, .Projet4 p, .Projet5 p, .Projet6 p, .Projet7 p {
+.Projet1 p, .Projet2 p, .Projet3 p, .Projet4 p,
+.Projet5 p, .Projet6 p, .Projet7 p {
     font-size: clamp(16px, 3vw, 20px);
     font-family: 'TTPubs-Italic';
     width: 100%;
@@ -426,11 +441,13 @@ video{
     font-family: 'Helvetica', sans-serif;
 }
 
-.Projet1 img, .Projet2 img, .Projet3 img, .Projet4 img, .Projet5 img, .Projet6 img, .Projet7 img {
+.Projet1 img, .Projet2 img, .Projet3 img, .Projet4 img,
+.Projet5 img, .Projet6 img, .Projet7 img {
     object-fit: cover;
     object-position: center;
     width: 100%;
     height: 50%;
+    /* Évite le layout shift : dimensions déclarées dans le HTML */
 }
 
 /* ========================================
@@ -501,7 +518,7 @@ video{
 button {
     position: relative;
     background: aquamarine;
-    border: none;   
+    border: none;
     font-family: TTPubs-Italic, italic;
     border-radius: 12px;
     padding: 12px 30px;
@@ -524,34 +541,13 @@ button:hover {
    ======================================== */
 
 @media (max-width: 1024px) {
-    header h1 {
-        left: 5%;
-    }
-    
-    .choix {
-        gap: 5px;
-    }
-    
-    .titre1 a, .titre2 a {
-        left: 50%;
-    }
-    
-    .titre1 a {
-        top: 55%;
-    }
-    
-    .titre2 a {
-        top: 45%;
-    }
-    
-    .Aboutme-content {
-        left: 50%;
-        top: 10vh;
-    }
-    
-    .Flex-container {
-        gap: 30px;
-    }
+    header h1 { left: 5%; }
+    .choix { gap: 5px; }
+    .titre1 a, .titre2 a { left: 50%; }
+    .titre1 a { top: 55%; }
+    .titre2 a { top: 45%; }
+    .Aboutme-content { left: 50%; top: 10vh; }
+    .Flex-container { gap: 30px; }
 }
 
 /* ========================================
@@ -564,94 +560,39 @@ button:hover {
         height: auto;
         padding: 15px;
     }
-    
-    header h1 {
-        left: 0;
-        top: 0;
-        margin-bottom: 10px;
-    }
-    
-    .choix {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .logo {
-        width: 100px;
-        height: 100px;
-        top: 150px;
-    }
-    
-    video {
-        top: 250px;
-    }
-    
-    .titre1 a, .titre2 a {
-        width: 80%;
-        left: 50%;
-    }
-    
-    .titre1 a {
-        top: 60%;
-    }
-    
-    .titre2 a {
-        top: 50%;
-    }
-    
-    .Aboutme {
-        top: 800px;
-        padding: 2rem 1.5rem;
-    }
-    
-    .Aboutme-content {
-        width: 95%;
-        top: 5vh;
-    }
-    
-    .Stat-container {
-        top: 30vh;
-    }
-    
+    header h1 { left: 0; top: 0; margin-bottom: 10px; }
+    .choix { flex-direction: column; gap: 10px; }
+    .logo { width: 100px; height: 100px; top: 150px; }
+    video { top: 250px; }
+    .titre1 a, .titre2 a { width: 80%; left: 50%; }
+    .titre1 a { top: 60%; }
+    .titre2 a { top: 50%; }
+    .Aboutme { top: 800px; padding: 2rem 1.5rem; }
+    .Aboutme-content { width: 95%; top: 5vh; }
+    .Stat-container { top: 30vh; }
     .Stat1, .Stat2, .Stat3, .Stat4, .Stat5 {
         min-width: 100%;
         margin: 0.5rem 0;
     }
-    
-    .Projets-container {
-        top: 50vh;
-    }
-    
-    .Flex-container {
-        gap: 20px;
-        padding: 1rem;
-    }
-    
-    .Projet1, .Projet2, .Projet3, .Projet4, .Projet5, .Projet6, .Projet7 {
-        max-width: 100%;
-    }
-    
-    .Comm-container {
-        top: 60vh;
-    }
-    
-    button {
-        left: 0;
-        width: 90%;
-        max-width: 300px;
-    }
+    .Projets-container { top: 50vh; }
+    .Flex-container { gap: 20px; padding: 1rem; }
+    .Projet1, .Projet2, .Projet3, .Projet4,
+    .Projet5, .Projet6, .Projet7 { max-width: 100%; }
+    .Comm-container { top: 60vh; }
+    button { left: 0; width: 90%; max-width: 300px; }
 }
 
 @media (max-width: 480px) {
-    .background-decoratif {
-        display: none; /* Masque sur très petits écrans pour performance */
-    }
-    
-    .titre1 a, .titre2 a {
-        width: 90%;
-    }
-    
-    .Aboutme {
-        border-radius: 20px;
+    .background-decoratif { display: none; }
+    .titre1 a, .titre2 a { width: 90%; }
+    .Aboutme { border-radius: 20px; }
+}
+
+/* ── Respect du choix utilisateur : pas d'animation si préférence réduite ── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
