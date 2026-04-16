@@ -14,7 +14,7 @@
     font-family: 'Helvetica Bold';
     src: url('IBMPlexSans-VariableFont_wdth,wght.ttf') format('truetype');
     font-weight: normal;
-    font-style: bold;
+    font-style: normal;
 }
 @font-face {
     font-family: 'TTPubs-Italic';
