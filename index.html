@@ -7,157 +7,168 @@
     <title>Maquette portfolio</title>
 
     <link rel="preload" href="TTPubs-Italic.woff" as="font" type="font/woff" crossorigin>
+
     <link rel="stylesheet" href="Page_1.css">
 
-    <style>
-        /* Optimisation de la police pour éviter le texte invisible */
-        @font-face {
-            font-family: 'TTPubs';
-            src: url('TTPubs-Italic.woff') format('woff');
-            font-display: swap;
-        }
-
-        .snow {
-            position: fixed;
-            pointer-events: none;
-            top: 0; left: 0; right: 0; bottom: 0;
-            height: 100vh;
-            background: none;
-            background-image: url('https://s3-eu-west-1.amazonaws.com/static-ressources/s1.png'),
-                              url('https://s3-eu-west-1.amazonaws.com/static-ressources/s2.png'),
-                              url('https://s3-eu-west-1.amazonaws.com/static-ressources/s3.png');
-            z-index: 1;
-            animation: snow 10s linear infinite;
-            /* Force l'accélération matérielle */
-            will-change: background-position;
-        }
-
-        @keyframes snow {
-            0%   { background-position: 0px 0px, 0px 0px, 0px 0px; }
-            100% { background-position: 500px 1000px, 200px 400px, -100px 300px; }
-        }
-
-        /* Classes pour le JavaScript optimisé */
-        .titre1, .titre2 {
-            position: fixed;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        .titre1 { top: 50%; }
-        .titre2 { top: 40%; }
-
-        .hidden-title {
-            opacity: 0 !important;
-            pointer-events: none;
-            transform: translateX(-50%) translateY(-20px);
-        }
-
-        /* Fix pour éviter que la vidéo déborde sur mobile avant chargement */
-        video {
-            max-width: 100%;
-            height: auto;
-            background: #000; /* Évite le flash blanc */
-        }
-    </style>
+    <link rel="preconnect" href="https://s3-eu-west-1.amazonaws.com">
 </head>
 
 <body>
 
-<div class="snow" aria-hidden="true"></div>
+<div class="snow"></div>
 
 <header>
-    <img src="fbf8413c9226cdcd11a603938b8587d0-Photoroom.webp" 
-         alt="Logo Meret Lysandre" 
-         class="logo" 
-         fetchpriority="high" 
-         width="150" height="150">
+    <img src="fbf8413c9226cdcd11a603938b8587d0-Photoroom.webp" alt="Logo Meret Lysandre" class="logo" fetchpriority="high">
     <h1>MERET LYSANDRE</h1>
-    <nav class="choix">
+    <div class="choix">
         <a href="#à-propos-de-moi">A propos de moi</a>
         <a href="#Contact">Me contacter</a>
         <a href="#en-savoir-plus">En savoir plus</a>
-    </nav>
+    </div>
 </header>
 
 <div id="particles-container"></div>
 
-<video autoplay loop muted playsinline preload="metadata" aria-label="Vidéo de présentation">
-    <source src="25477-350507890_tiny.mp4" type="video/mp4">
-    Votre navigateur ne supporte pas la vidéo.
+<video src="25477-350507890_tiny.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Vidéo de présentation">
+    Texte alternatif si vidéo non supportée
 </video>
 
 <a href="#ma-section" class="titre1">MY PROJECTS</a>
 <a href="#ma-section1" class="titre2">MY SKILLS</a>
 
-<section id="à-propos-de-moi" class="Aboutme">
+<div id="à-propos-de-moi" class="Aboutme">
     <p>ABOUT ME</p>
     <div class="Aboutme-content">
-        <p>Je suis un étudiant en première année de BUT MMI passionné par la création numérique. Mon objectif : mêler <strong>design graphique</strong>, <strong>motion design</strong> et <strong>développement web</strong>.</p>
+        <p>Je suis un étudiant en première année de BUT MMI passionné par la création numérique sous toutes ses formes. Mon objectif : mêler <strong>design graphique</strong>, <strong>motion design</strong> et <strong>développement web</strong> pour raconter des histoires visuelles fortes. J'aime expérimenter, apprendre et repousser les limites des outils que j'utilise</p>
     </div>
-</section>
+</div>
 
-<section id="ma-section1" class="Stat-container">
+<div id="ma-section1" class="Stat-container">
     <p>Skilled Stats</p>
-    
+
     <div class="Stat1">
-        <svg class="progress-circle" width="120" height="120">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#00bfff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="131" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">60%</span>
-        <img src="HTML5_Logo.webp" alt="HTML5" class="statlogo" loading="lazy" width="40" height="40">
+        <img src="HTML5_Logo.webp" alt="HTML5" class="statlogo" loading="lazy">
     </div>
 
-    </section>
+    <div class="Stat2">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+            <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
+            <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#ff8c00" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="164" transform="rotate(-90 60 60)"></circle>
+        </svg>
+        <span class="percentage">50%</span>
+        <img src="CSS_logo1.webp" alt="CSS3" class="statlogo" loading="lazy">
+    </div>
 
-<section id="en-savoir-plus" class="Projets-container">
-    <p id="ma-section">PROJECTS</p>
+    <div class="Stat3">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+            <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
+            <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#0000ff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="294" transform="rotate(-90 60 60)"></circle>
+        </svg>
+        <span class="percentage">10%</span>
+        <img src="php_logo.webp" alt="PHP" class="statlogo" loading="lazy">
+    </div>
+
+    <div class="Stat4">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+            <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
+            <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#9d9dff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="311" transform="rotate(-90 60 60)"></circle>
+        </svg>
+        <span class="percentage">5%</span>
+        <img src="icons8-javascript-logo-100-removebg-preview.webp" alt="JavaScript" class="statlogo" loading="lazy">
+    </div>
+
+    <div class="Stat5">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+            <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
+            <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#00d9a3" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="131" transform="rotate(-90 60 60)"></circle>
+        </svg>
+        <span class="percentage">60%</span>
+        <img src="Logo-Python-removebg-preview.webp" alt="Python" class="statlogo" loading="lazy">
+    </div>
+</div>
+
+<div id="en-savoir-plus" class="Projets-container">
+    <p id="ma-section">PROJECTS PLACEHOLDER</p>
     <div class="Flex-container">
         <div class="Projet1">
-            <img src="Projet1.webp" alt="Projet Corsica Games Week" loading="lazy" width="300" height="200">
+            <img src="Projet1.webp" alt="Projet Corsica Games Week" loading="lazy">
             <p>Projet Corsica Games Week</p>
             <div class="compétence-projet1">Design</div>
+            <div class="compétence-projet2">Illustrator</div>
+            <div class="compétence-projet3">Photoshop</div>
         </div>
+        <div class="Projet2">
+            <img src="Projet-Python-Echec.webp" alt="Projet Python Echec" loading="lazy">
+            <p>Projet Python Echec</p>
         </div>
-</section>
+        <div class="Projet3">
+            <img src="Projet-de-cours.webp" alt="Création de personnages sur Illustrator" loading="lazy">
+            <p>Création de personnages sur le logiciel illustrator</p>
+        </div>
+        <div class="Projet4">
+            <img src="Projet-cours-1.webp" alt="Travail sur les flexbox CSS" loading="lazy">
+            <p>Travail sur l'utilisation des flexbox en css</p>
+        </div>
+        <div class="Projet5">
+            <img src="Projet-Jeu-de-cartes.webp" alt="Projet jeu de cartes" loading="lazy">
+            <p>Projet consistant en la création d'un jeu de cartes</p>
+        </div>
+        <div class="Projet6">
+            <img src="Projet-portrait.webp" alt="Projet portrait à la main" loading="lazy">
+            <p>Projet de portrait à la main</p>
+        </div>
+    </div>
+</div>
 
-<section id="Contact" class="Comm-container">
+<div id="Contact" class="Comm-container">
     <p>CONTACT</p>
-    <form action="#" method="post">
-        <input type="text" placeholder="Votre nom" aria-label="Votre nom" required>
-        <input type="email" placeholder="Email" aria-label="Votre email" required>
-        <textarea name="message" rows="5" placeholder="Écrivez votre message ici..." aria-label="Votre message" required></textarea>
-        <button type="submit">Envoyer</button>
-    </form>
-</section>
+    <input type="text" placeholder="Votre nom" aria-label="Votre nom">
+    <input type="email" placeholder="Email" aria-label="Votre email">
+    <textarea name="message" rows="5" cols="40" placeholder="Écrivez votre message ici..." aria-label="Votre message"></textarea>
+    <button type="submit">Envoyer</button>
+</div>
 
 <script>
-/**
- * Optimisation du scroll avec RequestAnimationFrame
- * Évite de surcharger le processeur
+/** * Script de scroll optimisé. 
+ * On utilise requestAnimationFrame pour éviter les saccades (Jank).
  */
-let scrollTicking = false;
+let ticking = false;
 const titre1 = document.querySelector('.titre1');
 const titre2 = document.querySelector('.titre2');
 
 window.addEventListener('scroll', function() {
-    if (!scrollTicking) {
+    if (!ticking) {
         window.requestAnimationFrame(function() {
+            const scrollY = window.scrollY;
             const limiteBasse = 1000;
-            
-            if (window.scrollY > limiteBasse) {
-                titre1.classList.add('hidden-title');
-                titre2.classList.add('hidden-title');
+
+            if (scrollY < limiteBasse) {
+                titre1.style.position = 'fixed';
+                titre1.style.top = '50%';
+                titre1.style.opacity = '1';
+
+                titre2.style.position = 'fixed';
+                titre2.style.top = '40%';
+                titre2.style.opacity = '1';
             } else {
-                titre1.classList.remove('hidden-title');
-                titre2.classList.remove('hidden-title');
+                titre1.style.position = 'fixed';
+                titre1.style.top = limiteBasse + 'px';
+                titre1.style.opacity = '0';
+
+                titre2.style.position = 'fixed';
+                titre2.style.top = (limiteBasse - 100) + 'px';
+                titre2.style.opacity = '0';
             }
-            scrollTicking = false;
+            ticking = false;
         });
-        scrollTicking = true;
+        ticking = true;
     }
-});
+}, { passive: true });
 </script>
 
 </body>
