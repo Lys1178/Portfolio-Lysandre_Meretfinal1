@@ -1,9 +1,4 @@
-@font-face {
-    font-family: 'Trajan';
-    src: url('TrajanPro-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+
 @font-face {
     font-family: 'Frutiger65';
     src: url('Frutiger65.otf') format('opentype');
