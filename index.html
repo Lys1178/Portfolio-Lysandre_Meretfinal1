@@ -3,121 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maquette portfolio</title> 
-    <link rel="stylesheet" href="Page_1.css">
-  
+    <meta name="description" content="Portfolio de Meret Lysandre, étudiant en BUT MMI passionné par le design graphique, le motion design et le développement web.">
+    <title>Maquette portfolio</title>
+
+    <!-- Préchargement de la police principale pour éviter le CLS -->
+    <link rel="preload" href="TTPubs-Italic.woff" as="font" type="font/woff" crossorigin>
+
+    <!-- CSS chargé en non-bloquant -->
+    <link rel="preload" href="Page_1.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="Page_1.css"></noscript>
+
+    <!-- Preconnect pour les images de neige (S3) -->
+    <link rel="preconnect" href="https://s3-eu-west-1.amazonaws.com">
+
     <style>
     .editor-stage .snow {
-    height:50px;
-    background: #fff;
+        height: 50px;
+        background: #fff;
     }
-    .snow{
-    position:fixed;
-    pointer-events:none;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    height:100vh;
-    background: none;
-    background-image: url('https://s3-eu-west-1.amazonaws.com/static-ressources/s1.png'), url('https://s3-eu-west-1.amazonaws.com/static-ressources/s2.png'), url('https://s3-eu-west-1.amazonaws.com/static-ressources/s3.png');
-    z-index:1;
-
-    animation: snow 10s linear infinite;
+    .snow {
+        position: fixed;
+        pointer-events: none;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100vh;
+        background: none;
+        background-image: url('https://s3-eu-west-1.amazonaws.com/static-ressources/s1.png'),
+                          url('https://s3-eu-west-1.amazonaws.com/static-ressources/s2.png'),
+                          url('https://s3-eu-west-1.amazonaws.com/static-ressources/s3.png');
+        z-index: 1;
+        animation: snow 10s linear infinite;
     }
     @keyframes snow {
-    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-    100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+        0%   { background-position: 0px 0px, 0px 0px, 0px 0px; }
+        50%  { background-position: 500px 500px, 100px 200px, -100px 150px; }
+        100% { background-position: 500px 1000px, 200px 400px, -100px 300px; }
     }
-
-    </style> 
+    </style>
 </head>
 
 <body>
 
 <header>
-    <img src="fbf8413c9226cdcd11a603938b8587d0-Photoroom.webp" alt="" class="logo" fetchpriority="high">
+    <!-- fetchpriority="high" : logo = LCP, jamais lazy -->
+    <img src="fbf8413c9226cdcd11a603938b8587d0-Photoroom.webp" alt="Logo Meret Lysandre" class="logo" fetchpriority="high">
     <h1>MERET LYSANDRE</h1>
-    <div class = "choix">
+    <div class="choix">
         <a href="#à-propos-de-moi">A propos de moi</a>
         <a href="#Contact">Me contacter</a>
-        <a href="#en-savoir-plus"> En savoir plus </a>
-
+        <a href="#en-savoir-plus">En savoir plus</a>
     </div>
 </header>
 
 <div id="particles-container"></div>
 
- 
+<video src="25477-350507890_tiny.mp4" autoplay loop muted playsinline aria-label="Vidéo de présentation">
+    Texte alternatif si vidéo non supportée
+</video>
 
- <video src="25477-350507890_tiny.mp4" autoplay loop muted>
-  Texte alternatif si vidéo non supportée
-  </video>
-
-    
 <a href="#ma-section" class="titre1">MY PROJECTS</a>
 <a href="#ma-section1" class="titre2">MY SKILLS</a>
 
-
-
-    <div id="à-propos-de-moi" class = "Aboutme">
-        <p>ABOUT ME</p>
-    
-        <div class = "Aboutme-content">
-            <p>Je suis un étudiant en première année de BUT MMI passionné par la création numérique sous toutes ses formes. Mon objectif : mêler <strong>design graphique</strong>, <strong>motion design</strong> et <strong>développement web</strong> pour raconter des histoires visuelles fortes. J'aime expérimenter, apprendre et repousser les limites des outils que j'utilise</p>
-           </div>
+<div id="à-propos-de-moi" class="Aboutme">
+    <p>ABOUT ME</p>
+    <div class="Aboutme-content">
+        <p>Je suis un étudiant en première année de BUT MMI passionné par la création numérique sous toutes ses formes. Mon objectif : mêler <strong>design graphique</strong>, <strong>motion design</strong> et <strong>développement web</strong> pour raconter des histoires visuelles fortes. J'aime expérimenter, apprendre et repousser les limites des outils que j'utilise</p>
     </div>
-        
-        
+</div>
 
+<div id="ma-section1" class="Stat-container">
+    <p>Skilled Stats</p>
 
-        <div id="ma-section1" class="Stat-container">
-    <p >Skilled Stats</p>
-    
     <div class="Stat1">
-        <svg class="progress-circle" width="120" height="120">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#00bfff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="131" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">60%</span>
-        <img src="HTML5_Logo.webp" alt="" class="statlogo" loading = "lazy">
+        <img src="HTML5_Logo.webp" alt="HTML5" class="statlogo" loading="lazy">
     </div>
-    
+
     <div class="Stat2">
-        <svg class="progress-circle" width="120" height="120">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#ff8c00" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="164" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">50%</span>
-        <img src="CSS_logo1.webp" alt="" class="statlogo" loading = "lazy">
+        <img src="CSS_logo1.webp" alt="CSS3" class="statlogo" loading="lazy">
     </div>
-    
+
     <div class="Stat3">
-        <svg class="progress-circle" width="120" height="120">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#0000ff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="294" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">10%</span>
-        <img src="php_logo.webp" alt="" class="statlogo" loading = "lazy">
+        <img src="php_logo.webp" alt="PHP" class="statlogo" loading="lazy">
     </div>
-    
+
     <div class="Stat4">
-        <svg class="progress-circle" width="120" height="120">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#9d9dff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="311" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">5%</span>
-        <img src="icons8-javascript-logo-100-removebg-preview.webp" alt="" class="statlogo" loading = "lazy">
+        <img src="icons8-javascript-logo-100-removebg-preview.webp" alt="JavaScript" class="statlogo" loading="lazy">
     </div>
-    
+
     <div class="Stat5">
-        <svg class="progress-circle" width="120" height="120">
+        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#00d9a3" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="131" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">60%</span>
-        <img src="Logo-Python-removebg-preview.webp" alt="" class="statlogo" loading = "lazy">
+        <img src="Logo-Python-removebg-preview.webp" alt="Python" class="statlogo" loading="lazy">
     </div>
 </div>
 
@@ -125,83 +126,71 @@
     <p id="ma-section">PROJECTS PLACEHOLDER</p>
     <div class="Flex-container">
         <div class="Projet1">
-            <img src="Projet1.webp" alt="Projet 1" fetchpriority="high">
+            <!-- Images projets : sous la fold → loading="lazy", pas fetchpriority="high" -->
+            <img src="Projet1.webp" alt="Projet Corsica Games Week" loading="lazy">
             <p>Projet Corsica Games Week</p>
             <div class="compétence-projet1">Design</div>
-        <div class="compétence-projet2">Illustrator</div>
-        <div class="compétence-projet3">Photoshop</div>
+            <div class="compétence-projet2">Illustrator</div>
+            <div class="compétence-projet3">Photoshop</div>
         </div>
         <div class="Projet2">
-            <img src="Projet-Python-Echec.webp" alt="Projet 2" fetchpriority="high"> 
-            <p>Projet Python Echec</p> 
-
+            <img src="Projet-Python-Echec.webp" alt="Projet Python Echec" loading="lazy">
+            <p>Projet Python Echec</p>
         </div>
-        <div class="Projet3"> 
-            <img src="Projet-de-cours.webp" alt="Projet 3" fetchpriority="high">
+        <div class="Projet3">
+            <img src="Projet-de-cours.webp" alt="Création de personnages sur Illustrator" loading="lazy">
             <p>Création de personnages sur le logiciel illustrator</p>
         </div>
-        <div class="Projet4"> 
-            <img src="Projet-cours-1.webp" alt="Projet 4" fetchpriority="high">
+        <div class="Projet4">
+            <img src="Projet-cours-1.webp" alt="Travail sur les flexbox CSS" loading="lazy">
             <p>Travail sur l'utilisation des flexbox en css</p>
         </div>
-        <div class="Projet5"> 
-            <img src="Projet-Jeu-de-cartes.webp" alt="Projet 5" fetchpriority="high">
+        <div class="Projet5">
+            <img src="Projet-Jeu-de-cartes.webp" alt="Projet jeu de cartes" loading="lazy">
             <p>Projet consistant en la création d'un jeu de cartes</p>
         </div>
-        <div class="Projet6"> 
-            <img src="Projet-portrait.webp" alt="Projet 6" loading = "lazy">
+        <div class="Projet6">
+            <img src="Projet-portrait.webp" alt="Projet portrait à la main" loading="lazy">
             <p>Projet de portrait à la main</p>
         </div>
     </div>
 </div>
 
-
-
-
-
-    <div id="Contact" class = "Comm-container">
-        <p>CONTACT</p> 
-        <input type="text" placeholder="Votre nom" style="resize: none;">
-        <input type="email" placeholder="Email" style="resize: none;">
-        <textarea name="message" rows="5" cols="40" placeholder="Écrivez votre message ici..."></textarea>
+<div id="Contact" class="Comm-container">
+    <p>CONTACT</p>
+    <input type="text" placeholder="Votre nom" style="resize: none;" aria-label="Votre nom">
+    <input type="email" placeholder="Email" style="resize: none;" aria-label="Votre email">
+    <textarea name="message" rows="5" cols="40" placeholder="Écrivez votre message ici..." aria-label="Votre message"></textarea>
     <button type="submit">Envoyer</button>
 </div>
 
-      
-      <script>
-  
-
-
+<script>
 window.addEventListener('scroll', function() {
-    const titre1 = document.querySelector('.titre1 ');
-    const titre2 = document.querySelector('.titre2 ');
+    const titre1 = document.querySelector('.titre1');
+    const titre2 = document.querySelector('.titre2');
     const limiteBasse = 1000;
-    
+
     if (window.scrollY < limiteBasse) {
-        // En dessous de la limite : reste fixed et visible
         titre1.style.position = 'fixed';
         titre1.style.top = '50%';
-        titre1.style.opacity = '1'; // ← Ajout
-        
+        titre1.style.opacity = '1';
+
         titre2.style.position = 'fixed';
         titre2.style.top = '40%';
-        titre2.style.opacity = '1'; // ← Ajout
+        titre2.style.opacity = '1';
     } else {
-        // Au-delà de la limite : devient absolute et disparaît
         titre1.style.position = 'fixed';
         titre1.style.top = limiteBasse + 'px';
-        titre1.style.opacity = '0'; // ← Ajout
-        
+        titre1.style.opacity = '0';
+
         titre2.style.position = 'fixed';
         titre2.style.top = (limiteBasse - 100) + 'px';
-        titre2.style.opacity = '0'; // ← Ajout
+        titre2.style.opacity = '0';
     }
 });
-
-
 </script>
 
-    <div class="snow"></div>
-   
+<div class="snow"></div>
+
 </body>
 </html>
