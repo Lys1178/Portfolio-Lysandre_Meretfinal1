@@ -164,6 +164,9 @@ video {
   display: block;
   /* Évite que la vidéo soit promue en layer GPU inutilement au repos */
   will-change: auto;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Ou la proportion de ta vidéo */
+    background: #000;
 }
 
 .titre1, .titre2 {
