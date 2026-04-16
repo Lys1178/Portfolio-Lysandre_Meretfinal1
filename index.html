@@ -4,42 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio de Meret Lysandre, étudiant en BUT MMI passionné par le design graphique, le motion design et le développement web.">
+    <meta name="theme-color" content="#000000">
+
     <title>Maquette portfolio</title>
 
-    <!-- Préchargement de la police principale pour éviter le CLS -->
+    <!-- Police critique inline pour éviter FOIT sans requête réseau bloquante -->
     <link rel="preload" href="TTPubs-Italic.woff" as="font" type="font/woff" crossorigin>
 
-    <!-- CSS chargé en non-bloquant -->
-    <link rel="preload" href="Page_1.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- CSS principal : chargement non-bloquant robuste -->
+    <link rel="stylesheet" href="Page_1.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="Page_1.css"></noscript>
 
-    <!-- Preconnect pour les images de neige (S3) -->
-    <link rel="preconnect" href="https://s3-eu-west-1.amazonaws.com">
-
     <style>
-    .editor-stage .snow {
-        height: 50px;
-        background: #fff;
-    }
+    /* ── Neige : CSS pur, zéro requête réseau externe ── */
     .snow {
         position: fixed;
         pointer-events: none;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 100vh;
-        background: none;
-        background-image: url('https://s3-eu-west-1.amazonaws.com/static-ressources/s1.png'),
-                          url('https://s3-eu-west-1.amazonaws.com/static-ressources/s2.png'),
-                          url('https://s3-eu-west-1.amazonaws.com/static-ressources/s3.png');
+        inset: 0;
         z-index: 1;
-        animation: snow 10s linear infinite;
+        overflow: hidden;
+        contain: strict; /* isole le repaint */
     }
-    @keyframes snow {
-        0%   { background-position: 0px 0px, 0px 0px, 0px 0px; }
-        50%  { background-position: 500px 500px, 100px 200px, -100px 150px; }
-        100% { background-position: 500px 1000px, 200px 400px, -100px 300px; }
+    .snow::before,
+    .snow::after,
+    .snow span {
+        content: '';
+        position: absolute;
+        inset: -10px 0 0;
+        background-image:
+            radial-gradient(circle, #fff 1px, transparent 1px),
+            radial-gradient(circle, #fff 1.5px, transparent 1.5px),
+            radial-gradient(circle, #fff 1px, transparent 1px);
+        background-size: 180px 180px, 250px 250px, 130px 130px;
+        opacity: .55;
+        animation: snowfall 12s linear infinite;
+    }
+    .snow::after {
+        background-size: 200px 200px, 160px 160px, 220px 220px;
+        animation-duration: 18s;
+        animation-delay: -6s;
+        opacity: .35;
+    }
+    .snow span {
+        background-size: 100px 100px, 140px 140px, 90px 90px;
+        animation-duration: 9s;
+        animation-delay: -3s;
+        opacity: .45;
+    }
+    @keyframes snowfall {
+        from { transform: translateY(-10px); }
+        to   { transform: translateY(100vh); }
     }
     </style>
 </head>
@@ -48,22 +62,31 @@
 
 <header>
     <!-- fetchpriority="high" : logo = LCP, jamais lazy -->
-    <img src="fbf8413c9226cdcd11a603938b8587d0-Photoroom.webp" alt="Logo Meret Lysandre" class="logo" fetchpriority="high">
+    <img src="fbf8413c9226cdcd11a603938b8587d0-Photoroom.webp"
+         alt="Logo Meret Lysandre"
+         class="logo"
+         fetchpriority="high"
+         width="80" height="80"
+         decoding="async">
     <h1>MERET LYSANDRE</h1>
-    <div class="choix">
+    <nav class="choix" aria-label="Navigation principale">
         <a href="#à-propos-de-moi">A propos de moi</a>
         <a href="#Contact">Me contacter</a>
         <a href="#en-savoir-plus">En savoir plus</a>
-    </div>
+    </nav>
 </header>
 
-<div id="particles-container"></div>
+<!-- Particules : supprimé du DOM (vide et inutile) -->
 
-<video src="25477-350507890_tiny.mp4" autoplay loop muted playsinline aria-label="Vidéo de présentation">
+<!-- preload="none" : la vidéo n'est pas dans le viewport initial sur mobile -->
+<video src="25477-350507890_tiny.mp4"
+       autoplay loop muted playsinline
+       preload="none"
+       aria-label="Vidéo de présentation">
     Texte alternatif si vidéo non supportée
 </video>
 
-<a href="#ma-section" class="titre1">MY PROJECTS</a>
+<a href="#ma-section"  class="titre1">MY PROJECTS</a>
 <a href="#ma-section1" class="titre2">MY SKILLS</a>
 
 <div id="à-propos-de-moi" class="Aboutme">
@@ -77,48 +100,48 @@
     <p>Skilled Stats</p>
 
     <div class="Stat1">
-        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+        <svg class="progress-circle" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#00bfff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="131" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">60%</span>
-        <img src="HTML5_Logo.webp" alt="HTML5" class="statlogo" loading="lazy">
+        <img src="HTML5_Logo.webp" alt="HTML5" class="statlogo" loading="lazy" width="50" height="50">
     </div>
 
     <div class="Stat2">
-        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+        <svg class="progress-circle" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#ff8c00" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="164" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">50%</span>
-        <img src="CSS_logo1.webp" alt="CSS3" class="statlogo" loading="lazy">
+        <img src="CSS_logo1.webp" alt="CSS3" class="statlogo" loading="lazy" width="50" height="50">
     </div>
 
     <div class="Stat3">
-        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+        <svg class="progress-circle" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#0000ff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="294" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">10%</span>
-        <img src="php_logo.webp" alt="PHP" class="statlogo" loading="lazy">
+        <img src="php_logo.webp" alt="PHP" class="statlogo" loading="lazy" width="50" height="50">
     </div>
 
     <div class="Stat4">
-        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+        <svg class="progress-circle" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#9d9dff" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="311" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">5%</span>
-        <img src="icons8-javascript-logo-100-removebg-preview.webp" alt="JavaScript" class="statlogo" loading="lazy">
+        <img src="icons8-javascript-logo-100-removebg-preview.webp" alt="JavaScript" class="statlogo" loading="lazy" width="50" height="50">
     </div>
 
     <div class="Stat5">
-        <svg class="progress-circle" width="120" height="120" aria-hidden="true">
+        <svg class="progress-circle" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
             <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"></circle>
             <circle class="progress" cx="60" cy="60" r="52" fill="none" stroke="#00d9a3" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="131" transform="rotate(-90 60 60)"></circle>
         </svg>
         <span class="percentage">60%</span>
-        <img src="Logo-Python-removebg-preview.webp" alt="Python" class="statlogo" loading="lazy">
+        <img src="Logo-Python-removebg-preview.webp" alt="Python" class="statlogo" loading="lazy" width="50" height="50">
     </div>
 </div>
 
@@ -126,31 +149,30 @@
     <p id="ma-section">PROJECTS PLACEHOLDER</p>
     <div class="Flex-container">
         <div class="Projet1">
-            <!-- Images projets : sous la fold → loading="lazy", pas fetchpriority="high" -->
-            <img src="Projet1.webp" alt="Projet Corsica Games Week" loading="lazy">
+            <img src="Projet1.webp" alt="Projet Corsica Games Week" loading="lazy" width="350" height="150">
             <p>Projet Corsica Games Week</p>
             <div class="compétence-projet1">Design</div>
             <div class="compétence-projet2">Illustrator</div>
             <div class="compétence-projet3">Photoshop</div>
         </div>
         <div class="Projet2">
-            <img src="Projet-Python-Echec.webp" alt="Projet Python Echec" loading="lazy">
+            <img src="Projet-Python-Echec.webp" alt="Projet Python Echec" loading="lazy" width="350" height="150">
             <p>Projet Python Echec</p>
         </div>
         <div class="Projet3">
-            <img src="Projet-de-cours.webp" alt="Création de personnages sur Illustrator" loading="lazy">
+            <img src="Projet-de-cours.webp" alt="Création de personnages sur Illustrator" loading="lazy" width="350" height="150">
             <p>Création de personnages sur le logiciel illustrator</p>
         </div>
         <div class="Projet4">
-            <img src="Projet-cours-1.webp" alt="Travail sur les flexbox CSS" loading="lazy">
+            <img src="Projet-cours-1.webp" alt="Travail sur les flexbox CSS" loading="lazy" width="350" height="150">
             <p>Travail sur l'utilisation des flexbox en css</p>
         </div>
         <div class="Projet5">
-            <img src="Projet-Jeu-de-cartes.webp" alt="Projet jeu de cartes" loading="lazy">
+            <img src="Projet-Jeu-de-cartes.webp" alt="Projet jeu de cartes" loading="lazy" width="350" height="150">
             <p>Projet consistant en la création d'un jeu de cartes</p>
         </div>
         <div class="Projet6">
-            <img src="Projet-portrait.webp" alt="Projet portrait à la main" loading="lazy">
+            <img src="Projet-portrait.webp" alt="Projet portrait à la main" loading="lazy" width="350" height="150">
             <p>Projet de portrait à la main</p>
         </div>
     </div>
@@ -158,40 +180,45 @@
 
 <div id="Contact" class="Comm-container">
     <p>CONTACT</p>
-    <input type="text" placeholder="Votre nom" style="resize: none;" aria-label="Votre nom">
-    <input type="email" placeholder="Email" style="resize: none;" aria-label="Votre email">
+    <input type="text"  placeholder="Votre nom"  aria-label="Votre nom">
+    <input type="email" placeholder="Email"       aria-label="Votre email">
     <textarea name="message" rows="5" cols="40" placeholder="Écrivez votre message ici..." aria-label="Votre message"></textarea>
     <button type="submit">Envoyer</button>
 </div>
 
+<!-- Neige CSS-only : 0 requête réseau, 0 JS -->
+<div class="snow" aria-hidden="true"><span></span></div>
+
 <script>
-window.addEventListener('scroll', function() {
-    const titre1 = document.querySelector('.titre1');
-    const titre2 = document.querySelector('.titre2');
-    const limiteBasse = 1000;
+// Scroll handler avec passive:true → pas de jank sur le thread principal
+(function () {
+    var titre1 = document.querySelector('.titre1');
+    var titre2 = document.querySelector('.titre2');
+    var LIMITE = 1000;
+    var ticking = false; // requestAnimationFrame throttle
 
-    if (window.scrollY < limiteBasse) {
-        titre1.style.position = 'fixed';
-        titre1.style.top = '50%';
-        titre1.style.opacity = '1';
-
-        titre2.style.position = 'fixed';
-        titre2.style.top = '40%';
-        titre2.style.opacity = '1';
-    } else {
-        titre1.style.position = 'fixed';
-        titre1.style.top = limiteBasse + 'px';
-        titre1.style.opacity = '0';
-
-        titre2.style.position = 'fixed';
-        titre2.style.top = (limiteBasse - 100) + 'px';
-        titre2.style.opacity = '0';
+    function updateTitres() {
+        var y = window.scrollY;
+        if (y < LIMITE) {
+            titre1.style.cssText = 'position:fixed;top:50%;opacity:1';
+            titre2.style.cssText = 'position:fixed;top:40%;opacity:1';
+        } else {
+            titre1.style.cssText = 'position:fixed;top:' + LIMITE + 'px;opacity:0';
+            titre2.style.cssText = 'position:fixed;top:' + (LIMITE - 100) + 'px;opacity:0';
+        }
+        ticking = false;
     }
-});
-</script>
 
-<div class="snow"></div>
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            requestAnimationFrame(updateTitres);
+            ticking = true;
+        }
+    }, { passive: true });
+}());
+</script>
 
 </body>
 </html>
+
 
